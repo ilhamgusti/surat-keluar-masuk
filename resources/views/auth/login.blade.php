@@ -19,7 +19,7 @@
 
                                 <div class="text-center auth-logo-text">
                                     <h4 class="mt-0 mb-3 mt-5">Kementrian Agama Republik Indonesia</h4>
-                                    <p class="text-muted mb-0">Sistem Monitoring Proyek</p>
+                                    <p class="text-muted mb-0">Sistem Pengarsipan Surat Masuk Surat Keluar</p>
                                 </div>
                                 <!--end auth-logo-text-->
 
