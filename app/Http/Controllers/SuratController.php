@@ -49,7 +49,7 @@ class SuratController extends Controller
             $surat = SuratTransformer::toInstance($request->validated());
 
             $surat->file_url = URL::asset('storage/' . $request->file_url->store('documents', 'public'));
-            if ($request->type === 'Disposisi') {
+            if ($request->type === 'Submit') {
                 $surat->status = 1;
             } elseif ($request->type === 'Archive') {
                 $surat->status = 0;

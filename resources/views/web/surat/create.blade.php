@@ -97,7 +97,7 @@
                             </div>
                             <div class="float-right">
                                 <input type="submit" name="type" class="btn btn-success waves-effect waves-light shadow-none"
-                                    value="Disposisi" />
+                                    value="Submit" />
                                 <input type="submit" name="type" class="btn btn-purple waves-effect waves-light shadow-none"
                                     value="Archive" />
                                 <button class="btn btn-error waves-effect waves-light shadow-none">Cancel</button>
