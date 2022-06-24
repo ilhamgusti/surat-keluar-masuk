@@ -100,7 +100,7 @@
                             </div>
                         </div>
                         <div class="float-right">
-                            @if (auth()->user()->role >= $data->status && auth()->user()->role > 2)
+                            @if (auth()->user()->role > 2)
                                 <input type="button" name="type" value="Upload File"
                                     class="btn btn-primary waves-effect waves-light shadow-none"><i
                                     data-feather="arrow-right" data-size="10" class="align-self-center icon-sm  ml-1"></i>
