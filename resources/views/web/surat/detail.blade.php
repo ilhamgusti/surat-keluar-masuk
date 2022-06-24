@@ -30,7 +30,7 @@
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
         <div class="row">
             <div class="col-lg-12">
-                <div class="card">
+                <div class="card" x-data="{ open: false }">
                     <div class="card-body">
                         <h4 class="mt-0 header-title">{{ request()->get('arsip') ? 'Arsip' : 'Surat' }}</h4>
                         {{-- <form action="{{route('proyek.store')}}" method="post" enctype="multipart/form-data">
@@ -85,7 +85,7 @@
                                     </div>
                                 </div>
                                 @if (!$data->is_archive)
-                                    <form method="post" x-data="{ open: false }"
+                                    <form method="post"
                                         action="{{ route('surat.update-status', ['surat' => $data->id]) }}">
                                         @csrf
                                         @method('PUT')
@@ -97,14 +97,28 @@
                                                 <textarea class="form-control" name="remarks" type="text" id="example-text-input"></textarea>
                                             </div>
                                         </div>
-                                        <div x-show="open">
-                                            Dropdown Contents...
+                                    <div class="form-group row" x-show="open" x-transition>
+                                        <label for="timeline" class="col-sm-2 col-form-label text-right">Upload
+                                            Surat</label>
+                                        <div class="col-sm-10">
+                                            <input type="file">
+                                        
                                         </div>
+                                    </div>
+                                        <div class="form-group row" x-show="open" x-transition>
+                                            <label for="example-text-input"
+                                                class="col-sm-2 col-form-label text-right">Deskripsi</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" name="remarks" type="text" id="example-text-input"></textarea>
+                                            </div>
+                                        </div>
+
+
                             </div>
                         </div>
                         <div class="float-right">
                             @if (auth()->user()->role > 2)
-                                <input type="button" name="type" x-on:click="open = ! open" value="Upload File"
+                                <input type="button" name="type" x-on:click="open = !open" value="Upload File"
                                     class="btn btn-primary waves-effect waves-light shadow-none"><i
                                     data-feather="arrow-right" data-size="10" class="align-self-center icon-sm  ml-1"></i>
                             @endif
@@ -164,6 +178,8 @@
 @stop
 @section('footerScript')
     <!-- Required datatable js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
     <script src="{{ URL::asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ URL::asset('plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
     <!-- Buttons examples -->
