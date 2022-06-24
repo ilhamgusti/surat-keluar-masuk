@@ -15,8 +15,12 @@
         <div class="row">
             <div class="col-sm-12">
                 @component('common-components.breadcrumb')
-                    @slot('title') Arsip Surat @endslot
-                    @slot('item1') Home @endslot
+                    @slot('title')
+                        Arsip Surat
+                    @endslot
+                    @slot('item1')
+                        Home
+                    @endslot
                     {{-- @slot('item2')  @endslot --}}
                 @endcomponent
 
@@ -61,7 +65,7 @@
                                     <label for="example-text-input"
                                         class="col-sm-2 col-form-label text-right">Status</label>
                                     <div class="col-sm-10">
-                                    {!! transformSuratStatus($data->status) !!}
+                                        {!! transformSuratStatus($data->status) !!}
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -80,39 +84,40 @@
                                             Surat</a>
                                     </div>
                                 </div>
-                                @if(!$data->is_archive)
-                                <form method="post" action="{{ route('surat.update-status', ['surat' => $data->id]) }}">
-                                    @csrf
-                                    @method('PUT')
+                                @if (!$data->is_archive)
+                                    <form method="post"
+                                        action="{{ route('surat.update-status', ['surat' => $data->id]) }}">
+                                        @csrf
+                                        @method('PUT')
 
-                                    <div class="form-group row">
-                                        <label for="example-text-input"
-                                            class="col-sm-2 col-form-label text-right">Remarks</label>
-                                        <div class="col-sm-10">
-                                            <textarea class="form-control" name="remarks" type="text"
-                                                id="example-text-input"></textarea>
+                                        <div class="form-group row">
+                                            <label for="example-text-input"
+                                                class="col-sm-2 col-form-label text-right">Remarks</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" name="remarks" type="text" id="example-text-input"></textarea>
+                                            </div>
                                         </div>
-                                    </div>
                             </div>
                         </div>
                         <div class="float-right">
-                        <input type="submit" name="type" value="Tambah Remark"
+                            <input type="submit" name="type" value="Tambah Remark"
                                 class="btn btn-success waves-effect waves-light shadow-none"> <i
-                                    data-feather="message-square" data-size="10"
-                                    class="align-self-center icon-sm  ml-1"></i>
-                                    @canany(['isTU'])
-
-                                    <input type="submit" name="type" value="Archive"
-                                class="btn btn-purple waves-effect waves-light shadow-none"> <i
-                                    data-feather="message-square" data-size="10"
-                                    class="align-self-center icon-sm  ml-1"></i>
-
-                                    @endcanany
-                                    @if(auth()->user()->role >= $data->status)
-                            <input type="submit" name="type" value="Remark & Disposisi" class="btn btn-danger waves-effect waves-light shadow-none"><i
-                                    data-feather="arrow-right" data-size="10"
-                                    class="align-self-center icon-sm  ml-1"></i>
-                                    @endif
+                                data-feather="message-square" data-size="10" class="align-self-center icon-sm  ml-1"></i>
+                            @canany(['isTU'])
+                                <input type="submit" name="type" value="Archive"
+                                    class="btn btn-purple waves-effect waves-light shadow-none"> <i
+                                    data-feather="message-square" data-size="10" class="align-self-center icon-sm  ml-1"></i>
+                            @endcanany
+                            @if (auth()->user()->role >= $data->status && auth()->user()->role > 2)
+                                <input type="button" name="type" value="Upload File"
+                                    class="btn btn-danger waves-effect waves-light shadow-none"><i
+                                    data-feather="arrow-right" data-size="10" class="align-self-center icon-sm  ml-1"></i>
+                            @endif
+                            @if (auth()->user()->role >= $data->status && auth()->user()->role !== 5)
+                                <input type="submit" name="type" value="Remark & Disposisi"
+                                    class="btn btn-danger waves-effect waves-light shadow-none"><i
+                                    data-feather="arrow-right" data-size="10" class="align-self-center icon-sm  ml-1"></i>
+                            @endif
                         </div>
                         </form>
                         @endif
