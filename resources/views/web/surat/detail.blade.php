@@ -85,7 +85,7 @@
                                     </div>
                                 </div>
                                 @if (!$data->is_archive)
-                                    <form method="post"
+                                    <form method="post" x-data="{ open: false }"
                                         action="{{ route('surat.update-status', ['surat' => $data->id]) }}">
                                         @csrf
                                         @method('PUT')
@@ -97,11 +97,14 @@
                                                 <textarea class="form-control" name="remarks" type="text" id="example-text-input"></textarea>
                                             </div>
                                         </div>
+                                        <div x-show="open">
+                                            Dropdown Contents...
+                                        </div>
                             </div>
                         </div>
                         <div class="float-right">
                             @if (auth()->user()->role > 2)
-                                <input type="button" name="type" value="Upload File"
+                                <input type="button" name="type" x-on:click="open = ! open" value="Upload File"
                                     class="btn btn-primary waves-effect waves-light shadow-none"><i
                                     data-feather="arrow-right" data-size="10" class="align-self-center icon-sm  ml-1"></i>
                             @endif
