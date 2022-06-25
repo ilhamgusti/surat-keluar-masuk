@@ -30,7 +30,7 @@
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
         <div class="row">
             <div class="col-lg-12">
-                <div class="card" x-data="{ open: false }">
+                <div class="card" x-data="{ open: false, canUpload: false }">
                     <div class="card-body">
                         <h4 class="mt-0 header-title">{{ request()->get('arsip') ? 'Arsip' : 'Surat' }}</h4>
                         {{-- <form action="{{route('proyek.store')}}" method="post" enctype="multipart/form-data">
@@ -85,7 +85,7 @@
                                     </div>
                                 </div>
                                 @if (!$data->is_archive)
-                                    <form method="post"
+                                    <form method="post" enctype="multipart/form-data"
                                         action="{{ route('surat.update-status', ['surat' => $data->id]) }}">
                                         @csrf
                                         @method('PUT')
@@ -97,30 +97,57 @@
                                                 <textarea class="form-control" name="remarks" type="text" id="example-text-input"></textarea>
                                             </div>
                                         </div>
-                                    <div class="form-group row" x-show="open" x-transition>
-                                        <label for="timeline" class="col-sm-2 col-form-label text-right">Upload
-                                            Surat</label>
-                                        <div class="col-sm-10">
-                                            <input type="file">
-                                        
+                                        <div class="form-group row" x-show="open" x-transition>
+                                            <label for="timeline" class="col-sm-2 col-form-label text-right">Upload
+                                                Surat</label>
+                                            <div class="col-sm-10">
+                                                <input type="file" name="file_url_keluar">
+
+                                            </div>
                                         </div>
-                                    </div>
                                         <div class="form-group row" x-show="open" x-transition>
                                             <label for="example-text-input"
                                                 class="col-sm-2 col-form-label text-right">Deskripsi</label>
                                             <div class="col-sm-10">
-                                                <textarea class="form-control" name="remarks" type="text" id="example-text-input"></textarea>
+                                                <textarea x-on:change="canUpload = true" class="form-control" name="deskripsi_file_keluar" type="text"
+                                                    id="example-text-input"></textarea>
                                             </div>
                                         </div>
-
+                                        @if (auth()->user()->role >= $data->status)
+                                            @if ($data->file_url_keluar)
+                                                <div class="form-group row">
+                                                    <label for="timeline" class="col-sm-2 col-form-label text-right">File
+                                                        Surat</label>
+                                                    <div class="col-sm-10">
+                                                        <a href="{{ $data->file_url_keluar }}"
+                                                            class="btn btn-primary waves-effect waves-light shadow-none">Lihat
+                                                            File
+                                                            Surat Keluar</a>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="example-text-input"
+                                                        class="col-sm-2 col-form-label text-right">Deskripsi</label>
+                                                    <div class="col-sm-10">
+                                                        <p class="form-control" name="remarks" type="text"
+                                                            id="example-text-input">{{ $data->deskripsi_file_keluar }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        @endif
 
                             </div>
                         </div>
                         <div class="float-right">
-                            @if (auth()->user()->role > 2)
-                                <input type="button" name="type" x-on:click="open = !open" value="Upload File"
-                                    class="btn btn-primary waves-effect waves-light shadow-none"><i
-                                    data-feather="arrow-right" data-size="10" class="align-self-center icon-sm  ml-1"></i>
+                            @if (auth()->user()->role >= 2)
+                                @if (!$data->file_url_keluar)
+                                    <input :type="canUpload ? 'submit' : 'button'" name="type" x-on:click="open = true"
+                                        value="Upload File"
+                                        class="btn btn-primary waves-effect waves-light shadow-none"><i
+                                        data-feather="arrow-right" data-size="10"
+                                        class="align-self-center icon-sm  ml-1"></i>
+                                @endif
                             @endif
                             <input type="submit" name="type" value="Tambah Remark"
                                 class="btn btn-success waves-effect waves-light shadow-none"> <i

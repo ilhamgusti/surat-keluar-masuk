@@ -137,6 +137,7 @@ class SuratController extends Controller
      */
     public function updateStatus(Request $request, Surat $surat)
     {
+        // dd($request);
         DB::beginTransaction();
         try {
             // $surat = suratTransformer::getModel($request->surat_id);
@@ -148,6 +149,9 @@ class SuratController extends Controller
                 $surat->is_archive = 1;
             } elseif ($request->type === 'Tambah Remark') {
                 $this->addRemarks($request, $surat);
+            } elseif ($request->type === 'Upload File') {
+                // $this->addRemarks($request, $surat);
+                $this->addNewFile($request,$surat);
             }
             $surat->save();
 
@@ -156,6 +160,9 @@ class SuratController extends Controller
             Log::info($ex->getMessage());
             DB::rollBack();
             return response()->json($ex->getMessage(), 409);
+        }
+        if($request->type === 'Upload File'){
+            return redirect()->back()->with('success',"File Berhasil di upload");
         }
         return redirect()->route('surat.index')->with('success', 'Success Data berhasil di simpan');
     }
@@ -177,5 +184,10 @@ class SuratController extends Controller
         $remarks->status = 1;
         $remarks->user_id = \Auth::user()->id;
         $surat->remarks()->save($remarks);
+    }
+
+    private function addNewFile($request, $surat)
+    {
+        $surat->file_url_keluar = URL::asset('storage/' . $request->file_url_keluar->store('documents_keluar', 'public'));
     }
 }
