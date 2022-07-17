@@ -100,7 +100,7 @@
                                     value="Submit" />
                                 <input type="submit" name="type" class="btn btn-purple waves-effect waves-light shadow-none"
                                     value="Archive" />
-                                <button class="btn btn-error waves-effect waves-light shadow-none">Cancel</button>
+                                <a href="{{route('surat.index')}}" class="btn btn-error waves-effect waves-light shadow-none">Cancel</button>
                             </div>
                     </div>
                     <!--end card-body-->

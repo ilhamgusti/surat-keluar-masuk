@@ -116,7 +116,7 @@
                             @if (auth()->user()->role >= $data->status)
                                 @if (auth()->user()->role != 5)
                                     <input type="submit" name="type" value="Remark & Disposisi"
-                                        class="btn btn-danger waves-effect waves-light shadow-none"><i
+                                        class="btn btn-info waves-effect waves-light shadow-none"><i
                                         data-feather="arrow-right" data-size="10"
                                         class="align-self-center icon-sm  ml-1"></i>
                                 @endif
@@ -139,7 +139,7 @@
                                 @foreach ($data->remarks as $remarks)
                                     <tr>
                                         <td>{{ $remarks->remarks }}</td>
-                                        <td>{{ $remarks->created_at }}</td>
+                                        <td>{{ date_format('d/m/Y', $remarks->created_at) }}</td>
                                         <td>{{ $remarks->user->name }}</td>
                                         {{-- <td>{{ $remarks->status }}<span class="badge badge-soft-success">Approved</span> --}}
                                         </td>

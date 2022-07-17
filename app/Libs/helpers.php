@@ -22,15 +22,15 @@ function transformRole($roleId) {
         case 0:
             return 'Tata Usaha';
         case 1:
-            return 'Dirjen';
+            return 'Direktur';
         case 2:
-            return 'Eselon 1';
-        case 3:
-            return 'Eselon 2';
-        case 4:
             return 'Eselon 3';
+        case 3:
+            return 'Eselon 4';
+        case 4:
+            return 'Pelaksana';
         case 5:
-            return 'Pelaksana / Staff';
+            return 'Staff';
         default:
             return 'Unknown';
     }
