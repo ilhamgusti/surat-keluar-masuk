@@ -54,7 +54,7 @@
                                     <tr>
                                         <td>{{ $item->judul }}</td>
                                         <td>{{ $item->nomor }}</td>
-                                        <td>{{ $item->tanggal }}</td>
+                                        <td>{{ $item->tanggal->format('d/m/Y') }}</td>
                                         <td>{{ $item->jenis }}</td>
                                         <td>{!! transformSuratStatus($item->status) !!}</td>
                                         <td>{!! transformArchiveComponent($item->is_archive) !!}</td>
