@@ -11,7 +11,7 @@ class Surat extends Model
     use Filter;
 
     protected $casts = [
-        'tanggal'  => 'date:d/m/Y',
+        'tanggal'  => 'datetime:d/m/Y',
     ];
 
      protected function getFilters()
