@@ -139,7 +139,7 @@
                                 @foreach ($data->remarks as $remarks)
                                     <tr>
                                         <td>{{ $remarks->remarks }}</td>
-                                        <td>{{ date_format('d/m/Y', $remarks->created_at) }}</td>
+                                        <td>{{ date_format('d/m/Y', strtotime($remarks->created_at)) }}</td>
                                         <td>{{ $remarks->user->name }}</td>
                                         {{-- <td>{{ $remarks->status }}<span class="badge badge-soft-success">Approved</span> --}}
                                         </td>
