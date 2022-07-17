@@ -10,6 +10,10 @@ class Surat extends Model
 
     use Filter;
 
+    protected $casts = [
+        'tanggal'  => 'date:d/m/Y',
+    ];
+
      protected function getFilters()
     {
         return [
